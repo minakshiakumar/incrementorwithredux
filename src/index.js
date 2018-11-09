@@ -4,37 +4,21 @@ import { render } from 'react-dom';
 import Counter from './counter';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-// import * as CONSTANT_VALUES from './constant'
 import './index.css';
-
-//reducer creation 
-function reducer(state = [], action) {
-  console.log("action value", action);
-  switch (action.type) {
-    case 'INCREMENT':
-      return {
-        count: action.counter + 1
-      };
-    case 'DECREMENT':
-      return {
-        count: action.counter - 1
-      };
-    case 'ONCHANGE':
-    console.log("on change");
-      return {
-        count: action.counter
-      };
-    default:
-      return state;
-  }
-}
+import * as root from './reducer/combineReducer'
+import List from './list';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 //store creation
-const store = createStore(reducer);
+const store = createStore(root.rootReducer);
 
 const App = () => (
   <Provider store={store}>
-    <Counter />
+  <div>
+    <Counter/>
+    <List/>
+  </div>
   </Provider>
 );
 

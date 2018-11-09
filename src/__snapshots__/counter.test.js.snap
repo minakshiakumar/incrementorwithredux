@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter renders correctly 1`] = `
+<div
+  id="outer-div"
+>
+  <h2>
+    Counter
+  </h2>
+  <div>
+    <button>
+      -
+    </button>
+    <input
+      type="text"
+    />
+    <button>
+      +
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Counter renders xcorrectly 1`] = `
+<div
+  id="outer-div"
+>
+  <h2>
+    Counter
+  </h2>
+  <div>
+    <button>
+      -
+    </button>
+    <input
+      type="text"
+    />
+    <button>
+      +
+    </button>
+  </div>
+</div>
+`;
