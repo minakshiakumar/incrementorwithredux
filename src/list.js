@@ -11,7 +11,10 @@ export class List extends React.Component {
         }
     }
     componentWillMount(){
-        var obj={};
+        console.log(this.props.sortOrderValue,"sortOrderValue");
+        var obj={
+            sortOrder:this.props.sortOrderValue
+        };
         this.props.actions.getAllList(obj);
     }
     //For receiving updated store values
@@ -26,12 +29,9 @@ export class List extends React.Component {
         var list =this.state.list;
         return (
             <div>
-                <div className="list-outer">
-                    <p className="list-head">Label Service and Packing Slip  Company List</p>
-                   
                    {list.length>0?
-                   list.map((item,key) => <div className="list-view">
-                        <div key={key} className="col-md-8">
+                   list.map((item,key) => <div key={key} className="list-view">
+                        <div className="col-md-8">
                             <div className="row">
                                 <div className="col-sm-1 listing no-rht-border curve-left-border marg-r1-shift">
                                     <label>
@@ -57,9 +57,6 @@ export class List extends React.Component {
                             </div>
                         </div>
                     </div>):''}
-                   
-                    
-                </div>
             </div>
 
         )
