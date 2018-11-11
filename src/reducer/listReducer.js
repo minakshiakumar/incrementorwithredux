@@ -10,16 +10,16 @@ const listData=[
                 {"type":"Cad Sports","desc":"Packing slip","labelName":"Shipping label cad","labelId":100}
             ];
 export default function listReducer(state=[], action) {
-  console.log("list reducer");
     switch (action.type) {
       case ACTION_TYPE.GET_LIST:
-          if(action.sortOrder==1){
-           var data= _.sortBy(listData, 'type');
+          var data;
+          if(action.sortOrder===1){
+            data= _.sortBy(listData, 'type');
            return {
             listData: data
           };
           }else{
-            var data= _.sortBy(listData, 'type');
+            data= _.sortBy(listData, 'type');
             data.reverse();
             return {
              listData: data

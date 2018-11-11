@@ -1,9 +1,6 @@
 //reducer creation 
 import * as ACTION_TYPE from '../action/actionType'
 
-const initialState={
-  count:0
-}
 export default function counterReducer(state = [], action) {
     console.log("action value", action);
     switch (action.type) {
