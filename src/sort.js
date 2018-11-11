@@ -14,26 +14,18 @@ export class Sort extends React.Component {
         }
     }
     componentWillMount(){
-        // var obj={};
-        // this.props.actions.getAllList(obj);
     }
     //For receiving updated store values
     componentWillReceiveProps(nextProps) {
-        // var state = this.state;
-        // state.list = (nextProps && nextProps.listData) ? nextProps.listData: state.list;
-        // this.setState(state);
-
     }
     changeSortOrder=(e)=>{
      var state = this.state;
      state.sortOrder = (state.sortOrder==1)?-1:1;
      this.setState(state);
      this.props.dispatch({ type: ACTION_TYPE.GET_LIST ,sortOrder:this.state.sortOrder});
-     console.log(state,"sort state");
     }
 
     render() {
-        // var list =this.state.list;
         return (
             <div>
                 <div className="list-outer">
@@ -46,8 +38,9 @@ export class Sort extends React.Component {
                                 </div>
                                 <div className="col-md-1">
                                     <Router>
-                                        <Link to="" onClick={this.changeSortOrder}><img className="sort-down-icon" src={require('./image/sort-icon.PNG')} /></Link>
-                                            {   /* <i className="fa fa-sort-alpha-down"></i> */}
+                                        <Link to="" onClick={this.changeSortOrder}>
+                                            {this.state.sortOrder==1?<img className="sort-down-icon" src={require('./image/sort-icon.PNG')} />:<img className="sort-up-icon" src={require('./image/sort-up-icon.PNG')} />}
+                                        </Link>
                                     </Router>
                                 </div>
                             </div>
