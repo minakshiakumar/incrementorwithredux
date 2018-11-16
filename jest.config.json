@@ -1,0 +1,15 @@
+
+{
+    "testRegex": "((\\.|/*.)(snapshot))\\.js?$",
+    "rootDir": "..",
+    
+    "transform": {
+        
+        "\\.m?js$": "esm"
+  },
+  "transformIgnorePatterns": ["/node_modules/(?!${esModules})"],
+  "collectCoverage": true,
+  "collectCoverageFrom": ["src/**/*.{js,jsx}"],
+  "coverageDirectory": "/coverage/",
+  "coveragePathIgnorePatterns": ["/build/", "/node_modules/"],
+}

@@ -15,10 +15,10 @@ const store = createStore(root.rootReducer);
 
 const App = () => (
   <Provider store={store}>
-  <div>
-    <Counter/>
-    <Sort/>
-  </div>
+    <div>
+      <Counter />
+      <Sort />
+    </div>
   </Provider>
 );
 

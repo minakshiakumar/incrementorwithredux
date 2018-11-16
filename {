@@ -1,0 +1,32 @@
+
+> redux-intro@0.1.0 test C:\Users\minakshi.kumar\redux-intro
+> jest "it('should" "increment" "the" "counter" "in" "state'," "()" "="
+
+  Invalid testPattern it('should|increment|the|counter|in|state',|()|= supplied. Running all tests instead.
+  console.log src/counter.js:77
+    map state to 0 { counterReducer: { count: 0 } }
+
+  console.log src/counter.js:77
+    map state to 0 { counterReducer: { count: 0 } }
+
+  console.log src/counter.js:77
+    map state to 0 { counterReducer: { count: 0 } }
+
+  console.log src/counter.js:77
+    map state to 0 { counterReducer: { count: 0 } }
+
+  console.log src/counter.js:77
+    map state to 0 { counterReducer: { count: 0 } }
+
+  console.log src/counter.js:77
+    map state to 0 { counterReducer: { count: 0 } }
+
+  console.log src/counter.js:77
+    map state to 0 { counterReducer: { count: 0 } }
+
+  console.log src/counter.js:48
+    on decrement 0
+
+  console.log src/counter.js:58
+    No action on decrementor 0 number
+

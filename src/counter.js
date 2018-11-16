@@ -9,6 +9,10 @@ export class Counter extends React.Component {
     this.state = {
       count: CONSTANT_VALUES.minCounterValue
     }
+    this.increment = this.increment.bind(this);
+    this.onChange = this.onChange.bind(this);
+
+
   }
   //For receiving updated store values
   componentWillReceiveProps(nextProps) {
@@ -17,10 +21,9 @@ export class Counter extends React.Component {
     this.setState(state);
   }
   // For changing input of counter & validating counter value should not be greater than 100
-  onChange = (e) => {
+  onChange(e) {
     var state = this.state;
-    if (e.target.value === '' || (CONSTANT_VALUES.counterRegex).test(e.target.value)) 
-    {  
+    if (e.target.value === '' || (CONSTANT_VALUES.counterRegex).test(e.target.value)) {
       state.count = (Number(e.target.value) > CONSTANT_VALUES.maxCounterValue) ? CONSTANT_VALUES.maxCounterValue : Number(e.target.value);
       this.setState(state);
       this.props.dispatch({ type: ACTION_TYPE.ONCHANGE, counter: state.count });
@@ -29,7 +32,7 @@ export class Counter extends React.Component {
 
   }
   // For incrementing counter value by 1
-  increment = () => {
+  increment() {
     console.log("on increment", this.state.count);
     if (this.state.count < CONSTANT_VALUES.maxCounterValue) {
       this.props.dispatch({ type: ACTION_TYPE.INCREMENT, counter: this.state.count });
@@ -40,18 +43,18 @@ export class Counter extends React.Component {
   }
   // For decrementing counter value by 1
   decrement = () => {
-    var state= this.state;
+    var state = this.state;
     console.log("on decrement", this.state.count);
     if (this.state.count > CONSTANT_VALUES.minCounterValue && this.state.count !== CONSTANT_VALUES.min2CounterValue) {
       this.props.dispatch({ type: ACTION_TYPE.DECREMENT, counter: this.state.count });
     }
     else if (this.state.count === CONSTANT_VALUES.min2CounterValue) {
-      state.count=CONSTANT_VALUES.minCounterValue;
+      state.count = CONSTANT_VALUES.minCounterValue;
       this.setState(state);
       this.props.dispatch({ type: ACTION_TYPE.ONCHANGE, counter: CONSTANT_VALUES.minCounterValue });
-      console.log("No action on decrementor");
+      console.log("No actionh on decrementor");
     } else {
-      console.log("No action on decrementor");
+      console.log("No action on decrementor", this.state.count, typeof this.state.count);
 
     }
   }
@@ -60,9 +63,9 @@ export class Counter extends React.Component {
       <div id="outer-div">
         <h2>Counter</h2>
         <div>
-          <button onClick={this.decrement}>-</button>
+          <button id="decrement" onClick={this.decrement}>-</button>
           <input type="text" id="counter" value={this.state.count} onChange={this.onChange} />
-          <button onClick={this.increment}>+</button>
+          <button id="increment" onClick={this.increment}>+</button>
         </div>
       </div>
     )
@@ -70,7 +73,7 @@ export class Counter extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log("map state to", state.counterReducer.count,state  );
+  console.log("map state to", state.counterReducer.count, state);
   return {
     count: state.counterReducer.count
   };
