@@ -6,18 +6,21 @@ import expect from "expect";
 import configureStore from 'redux-mock-store';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import sinon from 'sinon';
+import * as ACTION_TYPE from './action/actionType';
+import reducer from './reducer/counterReducer'
+import * as CONSTANT_VALUES from './constant';
 
 configure({ adapter: new Adapter() });
 
 let initialState = { counterReducer: { count: 0 } };
 const mockStore = configureStore();
-let store, wrapper;
+let store, wrapper, componentWillReceivePropsSpy;
 
 describe("Counter", () => {
     beforeEach(() => {
-        store = mockStore(initialState)
-        wrapper = mount(<Provider store={store}><Counter /></Provider>)
+        store = mockStore(initialState);
+        wrapper = mount(<Provider store={store}><Counter /></Provider>);
+        componentWillReceivePropsSpy = jest.spyOn(Counter.prototype, 'componentWillReceiveProps');
     })
 
     it("renders xcorrectly1", () => {
@@ -37,31 +40,65 @@ describe("Counter", () => {
             .find('input')
             .first()
         instance.forceUpdate()
-        input.value = 0
-        input.simulate('change', input)
+        input.value = 2
+        input.simulate('change', input);
+        expect(
+            reducer([], {
+                type: ACTION_TYPE.ONCHANGE, counter: input.value
+            })
+        ).toEqual(
+            {
+                count: input.value
+            }
+        )
+
     });
 
     it('should decrement the counter in state', () => {
-        wrapper.find('button').at(0).simulate('click')
-        expect(wrapper.state().count).toEqual(0);
+        let currentCount = store.getState().counterReducer.count;
+        wrapper.find('button').at(0).simulate('click');
+        if (currentCount > CONSTANT_VALUES.Min_COUNTER_VALUE && currentCount !== CONSTANT_VALUES.Min2_COUNTER_VALUE) {
+            expect(
+                reducer([], {
+                    type: ACTION_TYPE.DECREMENT, counter: currentCount
+                })
+            ).toEqual(
+                {
+                    count: currentCount - 1
+                }
+            )
+        } else if (currentCount === 1) {
+
+            expect(
+                reducer([], {
+                    type: ACTION_TYPE.ONCHANGE, counter: currentCount
+                })
+            ).toEqual(
+                {
+                    count: currentCount - 1
+                }
+            )
+        } else {
+            expect(reducer([], {})).toEqual([]);
+        }
     });
 
     it('should increment the counter in state', () => {
+        let currentCount = store.getState().counterReducer.count;
         wrapper.find('button').at(1).simulate('click')
-        // expect(wrapper.state().count).toBe(1);
+        if (currentCount < CONSTANT_VALUES.MAX_COUNTER_VALUE) {
+            expect(
+                reducer([], {
+                    type: ACTION_TYPE.INCREMENT, counter: currentCount
+                })
+            ).toEqual(
+                {
+                    count: currentCount + 1
+                }
+            )
+        } else {
+            expect(reducer([], {})).toEqual([]);
+        }
     });
-
-    // it('call logUserId once', () => {
-
-    //     const spy = sinon.spy(Counter.prototype, 'componentWillReceiveProps');
-    //     // const wrapper = shallow(<Counter count={1} />);
-    //     // expect(spy).to.have.property('count', 0);
-    //     // wrapper.setProps({ count: 1});
-    //     initialState={ counterReducer: { count: 1 } }  
-    //     store = mockStore(initialState)
-    //     expect(wrapper.state().count).toEqual(1);
-    //     console.log(wrapper.state().count,"wrapper.state().count");
-    //     // expect(spy).to.have.property('count', 1);
-    // })
 
 });

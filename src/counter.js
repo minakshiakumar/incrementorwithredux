@@ -7,12 +7,10 @@ export class Counter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: CONSTANT_VALUES.minCounterValue
+      count: CONSTANT_VALUES.Min_COUNTER_VALUE
     }
     this.increment = this.increment.bind(this);
     this.onChange = this.onChange.bind(this);
-
-
   }
   //For receiving updated store values
   componentWillReceiveProps(nextProps) {
@@ -23,8 +21,8 @@ export class Counter extends React.Component {
   // For changing input of counter & validating counter value should not be greater than 100
   onChange(e) {
     var state = this.state;
-    if (e.target.value === '' || (CONSTANT_VALUES.counterRegex).test(e.target.value)) {
-      state.count = (Number(e.target.value) > CONSTANT_VALUES.maxCounterValue) ? CONSTANT_VALUES.maxCounterValue : Number(e.target.value);
+    if (e.target.value === '' || (CONSTANT_VALUES.COUNTER_REGEX).test(e.target.value)) {
+      state.count = (Number(e.target.value) > CONSTANT_VALUES.MAX_COUNTER_VALUE) ? CONSTANT_VALUES.MAX_COUNTER_VALUE : Number(e.target.value);
       this.setState(state);
       this.props.dispatch({ type: ACTION_TYPE.ONCHANGE, counter: state.count });
 
@@ -33,29 +31,20 @@ export class Counter extends React.Component {
   }
   // For incrementing counter value by 1
   increment() {
-    console.log("on increment", this.state.count);
-    if (this.state.count < CONSTANT_VALUES.maxCounterValue) {
+    if (this.state.count < CONSTANT_VALUES.MAX_COUNTER_VALUE) {
       this.props.dispatch({ type: ACTION_TYPE.INCREMENT, counter: this.state.count });
-    } else {
-      console.log("No action on incrementor");
     }
-
   }
   // For decrementing counter value by 1
   decrement = () => {
     var state = this.state;
-    console.log("on decrement", this.state.count);
-    if (this.state.count > CONSTANT_VALUES.minCounterValue && this.state.count !== CONSTANT_VALUES.min2CounterValue) {
+    if (this.state.count > CONSTANT_VALUES.Min_COUNTER_VALUE && this.state.count !== CONSTANT_VALUES.Min2_COUNTER_VALUE) {
       this.props.dispatch({ type: ACTION_TYPE.DECREMENT, counter: this.state.count });
     }
-    else if (this.state.count === CONSTANT_VALUES.min2CounterValue) {
-      state.count = CONSTANT_VALUES.minCounterValue;
+    else if (this.state.count === CONSTANT_VALUES.Min2_COUNTER_VALUE) {
+      state.count = CONSTANT_VALUES.Min_COUNTER_VALUE;
       this.setState(state);
-      this.props.dispatch({ type: ACTION_TYPE.ONCHANGE, counter: CONSTANT_VALUES.minCounterValue });
-      console.log("No actionh on decrementor");
-    } else {
-      console.log("No action on decrementor", this.state.count, typeof this.state.count);
-
+      this.props.dispatch({ type: ACTION_TYPE.ONCHANGE, counter: CONSTANT_VALUES.Min_COUNTER_VALUE });
     }
   }
   render() {

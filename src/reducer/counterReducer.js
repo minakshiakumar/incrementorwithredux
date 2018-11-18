@@ -13,7 +13,6 @@ export default function counterReducer(state = [], action) {
         count: action.counter - 1
       };
     case ACTION_TYPE.ONCHANGE:
-      console.log("on change");
       return {
         count: action.counter
       };
