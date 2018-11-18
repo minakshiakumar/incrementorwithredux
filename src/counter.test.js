@@ -7,12 +7,12 @@ import configureStore from 'redux-mock-store';
 import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import * as ACTION_TYPE from './action/actionType';
-import reducer from './reducer/counterReducer'
+import Reducer from './reducer/counterReducer'
 import * as CONSTANT_VALUES from './constant';
 
 configure({ adapter: new Adapter() });
 
-let initialState = { counterReducer: { count: 0 } };
+let initialState = { counterReducer: { count: 2 } };
 const mockStore = configureStore();
 let store, wrapper, componentWillReceivePropsSpy;
 
@@ -35,15 +35,15 @@ describe("Counter", () => {
     });
 
     it('on input change', () => {
-        const instance = wrapper.instance()
+        const instance = wrapper.instance();
         const input = wrapper
             .find('input')
             .first()
-        instance.forceUpdate()
-        input.value = 2
+        instance.forceUpdate();
+        input.value = 6;
         input.simulate('change', input);
         expect(
-            reducer([], {
+            Reducer([], {
                 type: ACTION_TYPE.ONCHANGE, counter: input.value
             })
         ).toEqual(
@@ -57,9 +57,9 @@ describe("Counter", () => {
     it('should decrement the counter in state', () => {
         let currentCount = store.getState().counterReducer.count;
         wrapper.find('button').at(0).simulate('click');
-        if (currentCount > CONSTANT_VALUES.Min_COUNTER_VALUE && currentCount !== CONSTANT_VALUES.Min2_COUNTER_VALUE) {
+        if (currentCount > CONSTANT_VALUES.MIN_COUNTER_VALUE && currentCount !== CONSTANT_VALUES.MIN2_COUNTER_VALUE) {
             expect(
-                reducer([], {
+                Reducer([], {
                     type: ACTION_TYPE.DECREMENT, counter: currentCount
                 })
             ).toEqual(
@@ -68,10 +68,9 @@ describe("Counter", () => {
                 }
             )
         } else if (currentCount === 1) {
-
             expect(
-                reducer([], {
-                    type: ACTION_TYPE.ONCHANGE, counter: currentCount
+                Reducer([], {
+                    type: ACTION_TYPE.ONCHANGE, counter: currentCount - 1
                 })
             ).toEqual(
                 {
@@ -79,16 +78,46 @@ describe("Counter", () => {
                 }
             )
         } else {
-            expect(reducer([], {})).toEqual([]);
+            expect(Reducer([], {})).toEqual([]);
         }
     });
 
+    it('should return the initial state', () => {
+        expect(Reducer([], {})).toEqual([]);
+    });
+
+    it('should handle ONCHANGE action type', () => {
+        let currentCount = store.getState().counterReducer.count;
+        let action = {
+            type: ACTION_TYPE.ONCHANGE,
+            counter: currentCount
+        }
+        expect(Reducer({}, action)).toEqual({ count: currentCount });
+    });
+
+    it('should handle INCREMENT action type', () => {
+        let currentCount = store.getState().counterReducer.count;
+        let action = {
+            type: ACTION_TYPE.INCREMENT,
+            counter: currentCount
+        }
+        expect(Reducer({}, action)).toEqual({ count: currentCount + 1 });
+    });
+
+    it('should handle DECREMENT action type', () => {
+        let currentCount = store.getState().counterReducer.count;
+        let action = {
+            type: ACTION_TYPE.DECREMENT,
+            counter: currentCount
+        }
+        expect(Reducer({}, action)).toEqual({ count: currentCount - 1 });
+    });
     it('should increment the counter in state', () => {
         let currentCount = store.getState().counterReducer.count;
         wrapper.find('button').at(1).simulate('click')
         if (currentCount < CONSTANT_VALUES.MAX_COUNTER_VALUE) {
             expect(
-                reducer([], {
+                Reducer([], {
                     type: ACTION_TYPE.INCREMENT, counter: currentCount
                 })
             ).toEqual(
@@ -97,8 +126,7 @@ describe("Counter", () => {
                 }
             )
         } else {
-            expect(reducer([], {})).toEqual([]);
+            expect(Reducer([], {})).toEqual([]);
         }
     });
-
 });

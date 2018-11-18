@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Counter renders xcorrectly1 1`] = `
+<div
+  id="outer-div"
+>
+  <h2>
+    Counter
+  </h2>
+  <div>
+    <button
+      id="decrement"
+      onClick={[Function]}
+    >
+      -
+    </button>
+    <input
+      id="counter"
+      onChange={[Function]}
+      type="text"
+      value={0}
+    />
+    <button
+      id="increment"
+      onClick={[Function]}
+    >
+      +
+    </button>
+  </div>
+</div>
+`;

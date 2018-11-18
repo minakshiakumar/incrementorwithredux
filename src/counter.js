@@ -7,7 +7,7 @@ export class Counter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: CONSTANT_VALUES.Min_COUNTER_VALUE
+      count: CONSTANT_VALUES.MIN_COUNTER_VALUE
     }
     this.increment = this.increment.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -38,13 +38,13 @@ export class Counter extends React.Component {
   // For decrementing counter value by 1
   decrement = () => {
     var state = this.state;
-    if (this.state.count > CONSTANT_VALUES.Min_COUNTER_VALUE && this.state.count !== CONSTANT_VALUES.Min2_COUNTER_VALUE) {
+    if (this.state.count > CONSTANT_VALUES.MIN_COUNTER_VALUE && this.state.count !== CONSTANT_VALUES.MIN2_COUNTER_VALUE) {
       this.props.dispatch({ type: ACTION_TYPE.DECREMENT, counter: this.state.count });
     }
-    else if (this.state.count === CONSTANT_VALUES.Min2_COUNTER_VALUE) {
-      state.count = CONSTANT_VALUES.Min_COUNTER_VALUE;
+    else if (this.state.count === CONSTANT_VALUES.MIN2_COUNTER_VALUE) {
+      state.count = CONSTANT_VALUES.MIN_COUNTER_VALUE;
       this.setState(state);
-      this.props.dispatch({ type: ACTION_TYPE.ONCHANGE, counter: CONSTANT_VALUES.Min_COUNTER_VALUE });
+      this.props.dispatch({ type: ACTION_TYPE.ONCHANGE, counter: CONSTANT_VALUES.MIN_COUNTER_VALUE });
     }
   }
   render() {
