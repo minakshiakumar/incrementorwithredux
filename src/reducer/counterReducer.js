@@ -6,11 +6,11 @@ export default function counterReducer(state = [], action) {
   switch (action.type) {
     case ACTION_TYPE.INCREMENT:
       return {
-        count: action.counter + 1
+        count: action.counter + action.changeCounterBy
       };
     case ACTION_TYPE.DECREMENT:
       return {
-        count: action.counter - 1
+        count: action.counter - action.changeCounterBy
       };
     case ACTION_TYPE.ONCHANGE:
       return {
