@@ -7,7 +7,7 @@ export class Counter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: CONSTANT_VALUES.MIN_COUNTER_VALUE
+      count: this.props.minCounterValue
     }
     this.increment = this.increment.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -22,29 +22,29 @@ export class Counter extends React.Component {
   onChange(e) {
     var state = this.state;
     if (e.target.value === '' || (CONSTANT_VALUES.COUNTER_REGEX).test(e.target.value)) {
-      state.count = (Number(e.target.value) > CONSTANT_VALUES.MAX_COUNTER_VALUE) ? CONSTANT_VALUES.MAX_COUNTER_VALUE : Number(e.target.value);
+      state.count = (Number(e.target.value) > this.props.maxCounterValue) ? this.props.maxCounterValue : Number(e.target.value);
       this.setState(state);
-      this.props.dispatch({ type: ACTION_TYPE.ONCHANGE, counter: state.count });
+      this.props.dispatch({ type: ACTION_TYPE.ONCHANGE, counter: state.count, changeCounterBy: this.props.changeCounterBy });
 
     }
 
   }
   // For incrementing counter value by 1
   increment() {
-    if (this.state.count < CONSTANT_VALUES.MAX_COUNTER_VALUE) {
-      this.props.dispatch({ type: ACTION_TYPE.INCREMENT, counter: this.state.count });
+    if (this.state.count < this.props.maxCounterValue) {
+      this.props.dispatch({ type: ACTION_TYPE.INCREMENT, counter: this.state.count, changeCounterBy: this.props.changeCounterBy });
     }
   }
   // For decrementing counter value by 1
   decrement = () => {
     var state = this.state;
-    if (this.state.count > CONSTANT_VALUES.MIN_COUNTER_VALUE && this.state.count !== CONSTANT_VALUES.MIN2_COUNTER_VALUE) {
-      this.props.dispatch({ type: ACTION_TYPE.DECREMENT, counter: this.state.count });
+    if (this.state.count > this.props.minCounterValue && this.state.count !== this.props.changeCounterBy) {
+      this.props.dispatch({ type: ACTION_TYPE.DECREMENT, counter: this.state.count, changeCounterBy: this.props.changeCounterBy });
     }
-    else if (this.state.count === CONSTANT_VALUES.MIN2_COUNTER_VALUE) {
-      state.count = CONSTANT_VALUES.MIN_COUNTER_VALUE;
+    else if (this.state.count === this.props.changeCounterBy) {
+      state.count = this.props.minCounterValue;
       this.setState(state);
-      this.props.dispatch({ type: ACTION_TYPE.ONCHANGE, counter: CONSTANT_VALUES.MIN_COUNTER_VALUE });
+      this.props.dispatch({ type: ACTION_TYPE.ONCHANGE, counter: this.props.minCounterValue, changeCounterBy: this.props.changeCounterBy });
     }
   }
   render() {

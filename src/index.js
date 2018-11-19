@@ -16,7 +16,7 @@ const store = createStore(root.rootReducer);
 const App = () => (
   <Provider store={store}>
     <div>
-      <Counter />
+      <Counter maxCounterValue={1000} minCounterValue={0} counterRegex={/^[0-9\b]+$/} changeCounterBy={2} />
       <Sort />
     </div>
   </Provider>
