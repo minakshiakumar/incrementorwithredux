@@ -12,7 +12,6 @@ import 'font-awesome/css/font-awesome.min.css';
 
 //store creation
 const store = createStore(root.rootReducer);
-
 const App = () => (
   <Provider store={store}>
     <div>

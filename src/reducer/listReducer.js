@@ -25,6 +25,10 @@ export default function listReducer(state = [], action) {
           listData: data
         };
       }
+    case action.LIST_TOOL_CHECK_STATUS:
+      return {
+        listToolCheckStatus: action.listToolCheckStatus
+      };
     default:
       return state;
   }
