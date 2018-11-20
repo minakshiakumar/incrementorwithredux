@@ -7,22 +7,25 @@ export class List extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            list: []
+            list: [],
+            rowCheckFlag: []
         }
     }
     componentWillMount() {
-        console.log(this.props.sortOrderValue, "sortOrderValue");
         var obj = {
-            sortOrder: this.props.sortOrderValue
+            sortOrder: this.props.sortOrderValue,
+            listToolCheckStatus: this.props.isCheckAll
         };
         this.props.actions.getAllList(obj);
+
     }
     //For receiving updated store values
     componentWillReceiveProps(nextProps) {
         var state = this.state;
         state.list = (nextProps && nextProps.listData) ? nextProps.listData : state.list;
+        state.rowCheckFlag = (nextProps && nextProps.listData && nextProps.listData.length > 0) ? new Array(4) : [];
+        state.rowCheckFlag = (nextProps && nextProps.listData && nextProps.listData.length > 0) ? state.rowCheckFlag.fill(this.props.isCheckAll) : [];
         this.setState(state);
-
     }
 
     render() {
@@ -33,7 +36,7 @@ export class List extends React.Component {
                     list.map((item, key) => <div key={key} className="col-md-8 grid-container">
                         <div className="grid-item no-rht-border curve-left-border">
                             <label>
-                                <input type="checkbox" name="" value="" />
+                                <input type="checkbox" name="checkbox" checked={this.state.rowCheckFlag[key]} onChange={this.props.changeRowCheckValue.bind(this, key)} />
                                 <i className="checkbox-helper"></i>
                             </label>
                         </div>

@@ -133,12 +133,11 @@ describe("Counter", () => {
         }
     });
 
-    it('call logUserId once', () => {
+    it('call componentWillRecieveProps once', () => {
         Reducer([], {
             type: ACTION_TYPE.INCREMENT, counter: 8
         })
-        expect(Counter.prototype.componentWillReceiveProps).toHaveBeenCalled()
-
+        expect(Counter.prototype.componentWillReceiveProps).toHaveBeenCalled();
     })
 
     
